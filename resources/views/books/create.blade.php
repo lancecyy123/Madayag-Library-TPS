@@ -35,6 +35,7 @@
                                 <option value="Biography" {{ old('category') == 'Biography' ? 'selected' : '' }}>Biography</option>
                                 <option value="Educational" {{ old('category') == 'Educational' ? 'selected' : '' }}>Educational</option>
                                 <option value="Other" {{ old('category') == 'Other' ? 'selected' : '' }}>Other</option>
+                                <p> Lance Madayag </p>
                             </select>
                             @error('category')
                                 <div class="invalid-feedback">{{ $message }}</div>
