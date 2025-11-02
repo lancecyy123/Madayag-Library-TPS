@@ -1,61 +1,163 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📚 Library Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📝 Description / Overview  
+This project is a **Library Management System** built using the **Laravel framework**.  
+It allows administrators to manage books, members, and transactions efficiently through a web interface.  
+Users can add, edit, delete, and view records for books, members, and borrowed transactions.  
+The system provides a simple dashboard and well-structured pages using Blade templates.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🎯 Objectives  
+- To develop a CRUD-based system for managing library resources.  
+- To apply MVC architecture using Laravel framework.  
+- To practice database integration and RESTful routing.  
+- To demonstrate Blade templating and Laravel controllers.  
+- To gain hands-on experience in building scalable web applications.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ⚙️ Features / Functionality  
+✅ **Books Management** – Add, edit, delete, and view book records.  
+✅ **Members Management** – Maintain a list of members with full CRUD functionality.  
+✅ **Transactions Management** – Record and monitor borrowed, overdue, and returned books.  
+✅ **Dashboard** – Quick overview of the system data.  
+✅ **Blade Templates** – User-friendly and responsive design with reusable layouts.  
+✅ **MySQL Integration** – All data is stored and retrieved from a relational database.  
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 💻 Installation Instructions
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Follow these steps to set up and run the project locally:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+# 1️⃣ Clone the repository
+git clone https://github.com/lancecyy123/Madayag-Library-TPS.git
 
-## Laravel Sponsors
+# 2️⃣ Navigate into the project directory
+cd Madayag-Library-TPS
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# 3️⃣ Install dependencies
+composer install
 
-### Premium Partners
+# 4️⃣ Copy the example environment file
+cp .env.example .env
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# 5️⃣ Configure your database credentials in the .env file
 
-## Contributing
+# 6️⃣ Generate an application key
+php artisan key:generate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 7️⃣ Run database migrations
+php artisan migrate
 
-## Code of Conduct
+# 8️⃣ Start the development server
+php artisan serve
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🚀 Usage
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Open the system in your browser: http://127.0.0.1:8000
+
+Use the Dashboard to view quick stats.
+
+Go to Books, Members, or Transactions to manage records.
+
+Click “Add” to create a new entry.
+
+Use “Edit” to modify existing entries.
+
+Click “Delete” to remove items from the database.
+
+Data updates automatically reflect in MySQL.
+
+---
+
+## Screenshots / Code Snippets
+
+- **Controller Example (BookController.php)**
+```php
+namespace App\Http\Controllers;
+
+use App\Models\Book;
+use Illuminate\Http\Request;
+
+class BookController extends Controller
+{
+    public function index() {
+        $books = Book::all();
+        return view('books.index', compact('books'));
+    }
+
+    public function create() {
+        return view('books.create');
+    }
+
+    public function store(Request $request) {
+        Book::create($request->all());
+        return redirect()->route('books.index');
+    }
+
+    public function edit(Book $book) {
+        return view('books.edit', compact('book'));
+    }
+
+    public function update(Request $request, Book $book) {
+        $book->update($request->all());
+        return redirect()->route('books.index');
+    }
+
+    public function destroy(Book $book) {
+        $book->delete();
+        return redirect()->route('books.index');
+    }
+}
+
+
+- **Blade Example (index.blade.php)**
+```php
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h1>Book List</h1>
+    <a href="{{ route('books.create') }}" class="btn btn-primary mb-3">Add Book</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th><th>Author</th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($books as $book)
+            <tr>
+                <td>{{ $book->title }}</td>
+                <td>{{ $book->author }}</td>
+                <td>
+                    <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning">Edit</a>
+                    <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display:inline;">
+                        @csrf @method('DELETE')
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+@endsection
+
+---
+
+## 👥 Contributors
+| Name | Role |
+|------|------|
+| **Lance Madayag** | Developer |
+| **Lance Napeñas** | Collaborator |
+
+---
 
 ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project was created as part of our ITPC 115 coursework and is intended solely for academic and educational purposes.
